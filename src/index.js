@@ -79,14 +79,7 @@ class App extends React.Component {
     this.state = {
       currentExperiment: 0, // Currently selected experiment in the database
     };
-    this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.onItemClick = this.onItemClick.bind(this);
-  }
-
-  onAddToCartClick() {
-    // Handle an Add to Cart button click. Pushes the id of the current experiment to the end of
-    // the cart.
-    this.props.cart.push(this.state.currentExperiment);
   }
 
   onItemClick(experimentId) {
@@ -107,7 +100,7 @@ class App extends React.Component {
         <Provider store={store}>
           <div>
             <CartSummary />
-            <AddToCart />
+            <AddToCart currentExperiment={this.state.currentExperiment} />
           </div>
         </Provider>
         <DisplayItem item={database[this.state.currentExperiment]} />

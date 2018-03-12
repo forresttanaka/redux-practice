@@ -2,8 +2,12 @@ import { connect } from "react-redux";
 import AddToCartComponent from "../components/addtocart";
 import { addToCart } from "../actions/actions";
 
-const mapDispatchToProps = dispatch => (
-  { onAddToCartClick: id => dispatch(addToCart(id)) }
+const mapDispatchToProps = (dispatch, ownProps) => (
+  {
+    onAddToCartClick: id => {
+      return dispatch(addToCart(ownProps.currentExperiment));
+    }
+  }
 );
 
 const AddToCart = connect(
