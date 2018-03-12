@@ -1,21 +1,22 @@
-import React from "react";
-import { connect } from "react-redux";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-let CartSummary = ({ cart }) => (
-  <div>
-    <h2>{cart.length} cart entries</h2>
+const CartSummaryComponent = ({ cart }) => (
     <div>
-      {cart.join(', ')}
+        <h2>{cart.length} cart entries</h2>
+        <div>
+            {cart.join(', ')}
+        </div>
     </div>
-  </div>
 );
 
-const mapStateToProps = state => {
-  return {
-    cart: state.cart
-  };
+CartSummaryComponent.propTypes = {
+    cart: PropTypes.array.isRequired,
 };
 
-CartSummary = connect(mapStateToProps)(CartSummary);
+const mapStateToProps = state => ({ cart: state.cart });
+
+const CartSummary = connect(mapStateToProps)(CartSummaryComponent);
 
 export default CartSummary;
