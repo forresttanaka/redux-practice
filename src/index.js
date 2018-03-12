@@ -7,6 +7,8 @@ import AddToCart from "./containers/addtocart";
 import DisplayItem from "./components/displayitem";
 import cartApp from "./reducers/cartreducer";
 
+
+// Database of items to add to the shopping cart.
 const database = [
   {
     id: 0,
@@ -26,11 +28,15 @@ const database = [
   }
 ];
 
-const initialCart = { cart: [] };
 
+// Redux store initialization.
+const initialCart = { cart: [] };
 let store = createStore(cartApp, initialCart);
 
+
 /* PRESENTATIONAL COMPONENTS */
+
+// Button to select which item is the current item in the database.
 class ItemSelectorButton extends React.Component {
   constructor() {
     super();
@@ -52,6 +58,7 @@ class ItemSelectorButton extends React.Component {
   }
 }
 
+// Section to display all database item selector buttons.
 let ItemSelector = ({ database, currentExperiment, item, onItemClick }) => (
   <div>
     {database.map(item => (
@@ -66,24 +73,24 @@ let ItemSelector = ({ database, currentExperiment, item, onItemClick }) => (
 );
 
 /* Top-level app */
-// Right now the only things that care about the cart are CartSummary
-// and AddToCart.
-
 class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      currentExperiment: 0
+      currentExperiment: 0, // Currently selected experiment in the database
     };
     this.onAddToCartClick = this.onAddToCartClick.bind(this);
     this.onItemClick = this.onItemClick.bind(this);
   }
 
   onAddToCartClick() {
+    // Handle an Add to Cart button click. Pushes the id of the current experiment to the end of
+    // the cart.
     this.props.cart.push(this.state.currentExperiment);
   }
 
   onItemClick(experimentId) {
+    // Handle a click in one of the experiment-selector buttons.
     this.setState({ currentExperiment: experimentId });
   }
 
@@ -92,18 +99,18 @@ class App extends React.Component {
 
     return (
       <div>
+        <ItemSelector
+          database={database}
+          currentExperiment={this.state.currentExperiment}
+          onItemClick={this.onItemClick}
+        />
         <Provider store={store}>
           <div>
-            <ItemSelector
-              database={database}
-              currentExperiment={this.state.currentExperiment}
-              onItemClick={this.onItemClick}
-            />
             <CartSummary />
             <AddToCart />
-            <DisplayItem item={database[this.state.currentExperiment]} />
           </div>
         </Provider>
+        <DisplayItem item={database[this.state.currentExperiment]} />
       </div>
     );
   }
