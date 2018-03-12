@@ -1,6 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 
-const CartSummaryComponent = ({ cart }) => (
+let CartSummary = ({ cart }) => (
   <div>
     <h2>{cart.length} cart entries</h2>
     <div>
@@ -9,4 +10,12 @@ const CartSummaryComponent = ({ cart }) => (
   </div>
 );
 
-export default CartSummaryComponent;
+const mapStateToProps = state => {
+  return {
+    cart: state.cart
+  };
+};
+
+CartSummary = connect(mapStateToProps)(CartSummary);
+
+export default CartSummary;

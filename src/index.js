@@ -2,10 +2,9 @@ import React from "react";
 import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
-import CartSummary from "./containers/cartsummary";
-import AddToCart from "./containers/addtocart";
-import DisplayItem from "./components/displayitem";
-import cartApp from "./reducers/cartreducer";
+import CartSummary from "./components/cartsummary";
+import AddToCart from "./components/addtocart";
+import { cartApp } from "./reducers/cartreducer";
 
 
 // Database of items to add to the shopping cart.
@@ -35,8 +34,10 @@ let store = createStore(cartApp, initialCart);
 
 
 /* PRESENTATIONAL COMPONENTS */
+/* These presentational components do not exist within the Redux world -- they keep their own state
+   and use global data instead of data in the store. */
 
-// Button to select which item is the current item in the database.
+// Button to select an experiment in the database to make the current one..
 class ItemSelectorButton extends React.Component {
   constructor() {
     super();
@@ -59,7 +60,7 @@ class ItemSelectorButton extends React.Component {
 }
 
 // Section to display all database item selector buttons.
-let ItemSelector = ({ database, currentExperiment, item, onItemClick }) => (
+const ItemSelector = ({ database, currentExperiment, item, onItemClick }) => (
   <div>
     {database.map(item => (
       <ItemSelectorButton
@@ -72,7 +73,14 @@ let ItemSelector = ({ database, currentExperiment, item, onItemClick }) => (
   </div>
 );
 
-/* Top-level app */
+const DisplayItem = ({ item }) => (
+  <div>
+    <h3>{item.name}</h3>
+    <p>ID: {item.id}</p>
+  </div>
+);
+
+// Top-level app.
 class App extends React.Component {
   constructor() {
     super();
