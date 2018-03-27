@@ -16,6 +16,9 @@ AddToCartComponent.defaultProps = {
     onAddToCartClick: null,
 };
 
+// AddToCartComponent component doesn't need mapStateToProps because it doesn't use any state from
+// the Redux store.
+
 const mapDispatchToProps = (dispatch, ownProps) => (
     { onAddToCartClick: () => dispatch(addToCart(ownProps.currentExperiment)) }
 );
