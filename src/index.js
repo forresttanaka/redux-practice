@@ -4,7 +4,7 @@ import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import CartSummary from './components/cartsummary';
-import AddToCart from './components/addtocart';
+import CartAddRemove from './components/addtocart';
 import { cartApp } from './reducers/cartreducer';
 
 
@@ -129,7 +129,7 @@ class App extends React.Component {
                 <Provider store={store}>
                     <div>
                         <CartSummary />
-                        <AddToCart currentExperiment={this.state.currentExperiment} />
+                        <CartAddRemove currentExperiment={this.state.currentExperiment} />
                     </div>
                 </Provider>
                 <DisplayItem item={database[this.state.currentExperiment]} />
